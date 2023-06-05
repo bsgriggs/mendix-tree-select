@@ -10,8 +10,37 @@
     <properties>
         <propertyGroup caption="General">
             <propertyGroup caption="Data">
-
-                <property key="dataString" type="expression" required="true">
+                <property key="dataSource" type="datasource" isList="true">
+                    <caption>Data source</caption>
+                    <description></description>
+                </property>
+                <property key="label" type="expression" required="true" dataSource="dataSource">
+                    <caption>Label</caption>
+                    <description></description>
+                    <returnType type="String" />
+                </property>
+                <property key="objKey" type="attribute" required="true" dataSource="dataSource">
+                    <caption>Key</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="parentKey" type="attribute" required="true" dataSource="dataSource">
+                    <caption>Parent key</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="association" type="association" selectableObjects="dataSource" required="true" onChange="onSelect">
+                    <caption>Association</caption>
+                    <description></description>
+                    <associationTypes>
+                        <associationType name="ReferenceSet" />
+                    </associationTypes>
+                </property>
+                <!-- <property key="dataString" type="expression" required="true">
                     <caption>Data string</caption>
                     <description>JSON structure of the selectable objects</description>
                     <returnType type="String" />
@@ -22,7 +51,7 @@
                     <attributeTypes>
                         <attributeType name="String" />
                     </attributeTypes>
-                </property>
+                </property> -->
                 <property key="onSelect" type="action">
                     <caption>On select</caption>
                     <description></description>
