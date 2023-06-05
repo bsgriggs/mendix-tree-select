@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.mendixtreeselect.MendixTreeSelect" pluginWidget="true" needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Tree Select</name>
+    <description>Mendix widget to use AntDesign TreeSelect</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="General">
+            <propertyGroup caption="Data">
+
+                <property key="dataString" type="expression" required="true">
+                    <caption>Data string</caption>
+                    <description>JSON structure of the selectable objects</description>
+                    <returnType type="String" />
+                </property>
+                <property key="setAttribute" type="attribute" required="true" onChange="onSelect">
+                    <caption>Set attribute</caption>
+                    <description>String attribute to set the selected options to</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="onSelect" type="action">
+                    <caption>On select</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="System">
+                <systemProperty key="Name"></systemProperty>
+                <systemProperty key="Label"></systemProperty>
+                <systemProperty key="Editability"></systemProperty>
+                <systemProperty key="TabIndex"></systemProperty>
+                <systemProperty key="Visibility"></systemProperty>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>
