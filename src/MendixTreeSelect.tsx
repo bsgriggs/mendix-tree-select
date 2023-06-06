@@ -4,6 +4,7 @@ import { TreeSelect } from "antd";
 import { ValueStatus, ObjectItem } from "mendix";
 import "./ui/TreeSelect.css";
 import { DefaultOptionType } from "antd/es/select";
+import { OptionMap } from "typings/OptionMap";
 
 export function MendixTreeSelect({
     id,
@@ -16,11 +17,13 @@ export function MendixTreeSelect({
     parentKey
 }: MendixTreeSelectContainerProps): ReactElement {
     const [data, setData] = useState<DefaultOptionType[]>([]);
-    const [value, setValue] = useState<DefaultOptionType[]>([]);
+    const [optionMap, setOptionMap] = useState<OptionMap[]>([]);
+    const [value, setValue] = useState<string[]>([]);
 
     useEffect(() => {
         if (dataSource.status === ValueStatus.Available && dataSource.items) {
             setData(convertToOption(dataSource.items));
+            setOptionMap(convertOptionMap(dataSource.items));
         } else {
             setData([]);
         }
@@ -28,11 +31,24 @@ export function MendixTreeSelect({
 
     useEffect(() => {
         if (association.status === ValueStatus.Available) {
-            setValue(convertToOption(association.value as ObjectItem[]));
+            setValue(convertCurrentValue(association.value as ObjectItem[]));
         } else {
             setValue([]);
         }
     }, [association]);
+
+    const convertOptionMap = useCallback((list: ObjectItem[]): OptionMap[] => {
+        return list.map(obj => {
+            return {
+                key: objKey.get(obj).displayValue,
+                objectItem: obj
+            };
+        });
+    }, []);
+
+    const convertCurrentValue = useCallback((list: ObjectItem[]): string[] => {
+        return list.map(obj => objKey.get(obj).displayValue);
+    }, []);
 
     const convertToOption = useCallback((list: ObjectItem[]): DefaultOptionType[] => {
         let node: DefaultOptionType,
@@ -42,7 +58,6 @@ export function MendixTreeSelect({
                 label: label.get(obj).value,
                 value: objKey.get(obj).displayValue,
                 parentValue: parentKey.get(obj).displayValue,
-                objectItem: obj,
                 children: []
             };
         });
@@ -58,17 +73,19 @@ export function MendixTreeSelect({
         return roots;
     }, []);
 
-    const onChange = useCallback((newValue: DefaultOptionType[]) => {
-        console.info("selected ant", newValue);
-        /* eslint-disable */
-        // @ts-ignore
-        const selected = data.filter(option => newValue.includes(option.value)).map(option => option.objectItem);
-        console.info("selected mx", selected);
+    const onChange = (newValue: string[]) => {
+        // setValue(newValue);
+        // let selected: ObjectItem[] = [];
+        // newValue.forEach(val => {
+        //     optionMap.forEach(option => {
+        //         if (option.key === val) {
+        //             selected.push(option.objectItem);
+        //         }
+        //     });
+        // });
+        const selected = optionMap.filter(option => newValue.includes(option.key)).map(option => option.objectItem);
         association.setValue(selected);
-        /* eslint-enable */
-    }, []);
-
-    console.info("data", data);
+    };
 
     /* JSON version
         useEffect(() => {
@@ -92,23 +109,22 @@ export function MendixTreeSelect({
     */
 
     return (
-        <TreeSelect
-            tabIndex={tabIndex}
-            id={name}
-            aria-describedby={id}
-            treeData={data}
-            showSearch
-            style={{ width: "100%" }}
-            value={value}
-            dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
-            placeholder="Please select"
-            allowClear
-            multiple
-            treeDefaultExpandAll
-            onChange={onChange}
-            treeNodeFilterProp="label"
-            treeCheckable
-            showCheckedStrategy={TreeSelect.SHOW_ALL}
-        />
+            <TreeSelect
+                tabIndex={tabIndex}
+                id={name}
+                aria-describedby={id}
+                treeData={data}
+                showSearch
+                value={value}
+                popupMatchSelectWidth
+                placeholder="Please select"
+                allowClear
+                multiple
+                treeDefaultExpandAll
+                onChange={onChange}
+                treeCheckable
+                showCheckedStrategy={TreeSelect.SHOW_ALL}
+                autoClearSearchValue
+            />
     );
 }
