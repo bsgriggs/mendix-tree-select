@@ -4,6 +4,7 @@
  * @author Mendix UI Content Team
  */
 import { ActionValue, ListValue, ListAttributeValue, ListExpressionValue, ReferenceSetValue } from "mendix";
+import { Big } from "big.js";
 
 export interface MendixTreeSelectContainerProps {
     name: string;
@@ -11,8 +12,8 @@ export interface MendixTreeSelectContainerProps {
     id: string;
     dataSource: ListValue;
     label: ListExpressionValue<string>;
-    objKey: ListAttributeValue<string>;
-    parentKey: ListAttributeValue<string>;
+    objKey: ListAttributeValue<string | Big>;
+    parentKey: ListAttributeValue<string | Big>;
     association: ReferenceSetValue;
     onSelect?: ActionValue;
 }

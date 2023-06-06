@@ -64,8 +64,12 @@ export function MendixTreeSelect({
         for (let i = 0; i < baseList.length; i += 1) {
             node = baseList[i];
             if (node.parentValue) {
-                // if you have dangling branches check that map[node.parentId] exists
-                baseList.find(opt => opt.value === node.parentValue)?.children?.push(node);
+                const parentIndex = baseList.findIndex(opt => opt.value === node.parentValue);
+                if (parentIndex !== -1){
+                    baseList[parentIndex].children?.push(node);
+                } else{
+                    roots.push(node);
+                }
             } else {
                 roots.push(node);
             }
@@ -110,8 +114,8 @@ export function MendixTreeSelect({
 
     return (
             <TreeSelect
-                tabIndex={tabIndex}
                 id={name}
+                tabIndex={tabIndex}
                 aria-describedby={id}
                 treeData={data}
                 showSearch
@@ -124,7 +128,8 @@ export function MendixTreeSelect({
                 onChange={onChange}
                 treeCheckable
                 showCheckedStrategy={TreeSelect.SHOW_ALL}
-                autoClearSearchValue
+                treeNodeFilterProp="label"
+                treeLine
             />
     );
 }

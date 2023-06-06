@@ -24,6 +24,9 @@
                     <description></description>
                     <attributeTypes>
                         <attributeType name="String" />
+                        <attributeType name="Long" />
+                        <attributeType name="AutoNumber" />
+                        <attributeType name="Integer" />
                     </attributeTypes>
                 </property>
                 <property key="parentKey" type="attribute" required="true" dataSource="dataSource">
@@ -31,6 +34,9 @@
                     <description></description>
                     <attributeTypes>
                         <attributeType name="String" />
+                        <attributeType name="Long" />
+                        <attributeType name="AutoNumber" />
+                        <attributeType name="Integer" />
                     </attributeTypes>
                 </property>
                 <property key="association" type="association" selectableObjects="dataSource" required="true" onChange="onSelect">
