@@ -3,7 +3,6 @@ import { MendixTreeSelectContainerProps } from "../typings/MendixTreeSelectProps
 import { TreeSelect } from "antd";
 import { ValueStatus, ObjectItem } from "mendix";
 import "./ui/TreeSelect.css";
-import { DefaultOptionType } from "antd/es/select";
 import { OptionMap } from "typings/OptionMap";
 
 export function MendixTreeSelect({
@@ -14,122 +13,103 @@ export function MendixTreeSelect({
     dataSource,
     objKey,
     label,
-    parentKey
+    parentKey,
+    checkable,
+    selectableJSON,
+    expandAll,
+    inputType,
+    placeholder,
+    selectionType,
+    selectedAttribute,
+    showTreeLines,
+    treeDataType
 }: MendixTreeSelectContainerProps): ReactElement {
-    const [data, setData] = useState<DefaultOptionType[]>([]);
-    const [optionMap, setOptionMap] = useState<OptionMap[]>([]);
+    const [data, setData] = useState<OptionMap[]>([]);
     const [value, setValue] = useState<string[]>([]);
 
+    //Mendix Convert Data
     useEffect(() => {
-        if (dataSource.status === ValueStatus.Available && dataSource.items) {
-            setData(convertToOption(dataSource.items));
-            setOptionMap(convertOptionMap(dataSource.items));
-        } else {
-            setData([]);
+        if (inputType === "MENDIX" && dataSource.status === ValueStatus.Available && dataSource.items) {
+            setData(convertOptionMap(dataSource.items));
         }
     }, [dataSource]);
 
+    //Mendix Convert Current Value
     useEffect(() => {
-        if (association.status === ValueStatus.Available) {
+        if (inputType === "MENDIX" && association.status === ValueStatus.Available) {
             setValue(convertCurrentValue(association.value as ObjectItem[]));
-        } else {
-            setValue([]);
         }
     }, [association]);
 
-    const convertOptionMap = useCallback((list: ObjectItem[]): OptionMap[] => {
-        return list.map(obj => {
-            return {
-                key: objKey.get(obj).displayValue,
-                objectItem: obj
-            };
-        });
-    }, []);
+    //JSON Convert Data
+    useEffect(() => {
+        if (inputType === "JSON" && selectableJSON.status === ValueStatus.Available) {
+            setData(JSON.parse(selectableJSON.value));
+        }
+    }, [selectableJSON]);
+
+    //JSON Convert Current Value
+    useEffect(() => {
+        if (inputType === "JSON" && selectedAttribute.status === ValueStatus.Available) {
+            setValue(JSON.parse(selectedAttribute.value as string));
+        }
+    }, [selectedAttribute]);
+
+    const convertOptionMap = useCallback(
+        (list: ObjectItem[]): OptionMap[] => {
+            return list.map(obj => {
+                return {
+                    value: objKey.get(obj).displayValue,
+                    label: label.get(obj).value as string,
+                    id: objKey.get(obj).displayValue,
+                    pId: parentKey.get(obj).displayValue,
+                    objectItem: obj
+                };
+            });
+        },
+        [objKey, label, parentKey, dataSource]
+    );
 
     const convertCurrentValue = useCallback((list: ObjectItem[]): string[] => {
         return list.map(obj => objKey.get(obj).displayValue);
     }, []);
 
-    const convertToOption = useCallback((list: ObjectItem[]): DefaultOptionType[] => {
-        let node: DefaultOptionType,
-            roots: DefaultOptionType[] = [];
-        let baseList: DefaultOptionType[] = list.map(obj => {
-            return {
-                label: label.get(obj).value,
-                value: objKey.get(obj).displayValue,
-                parentValue: parentKey.get(obj).displayValue,
-                children: []
-            };
-        });
-        for (let i = 0; i < baseList.length; i += 1) {
-            node = baseList[i];
-            if (node.parentValue) {
-                const parentIndex = baseList.findIndex(opt => opt.value === node.parentValue);
-                if (parentIndex !== -1){
-                    baseList[parentIndex].children?.push(node);
-                } else{
-                    roots.push(node);
-                }
-            } else {
-                roots.push(node);
-            }
-        }
-        return roots;
-    }, []);
-
-    const onChange = (newValue: string[]) => {
-        // setValue(newValue);
-        // let selected: ObjectItem[] = [];
-        // newValue.forEach(val => {
-        //     optionMap.forEach(option => {
-        //         if (option.key === val) {
-        //             selected.push(option.objectItem);
-        //         }
-        //     });
-        // });
-        const selected = optionMap.filter(option => newValue.includes(option.key)).map(option => option.objectItem);
-        association.setValue(selected);
-    };
-
-    /* JSON version
-        useEffect(() => {
-        if (dataString.status === ValueStatus.Available) {
-            const newOptions: BaseOptionType[] = JSON.parse(dataString.value);
-            setData(newOptions);
-            console.info("New options", newOptions);
-        }
-    }, [dataString]);
-
-    useEffect(() => {
-        if (setAttribute.status === ValueStatus.Available) {
-            setValue(JSON.parse(setAttribute.value as string));
-        }
-    }, [setAttribute]);
-
-    const onChange = useCallback((newValue: string[]) => {
-        console.info("selected", newValue);
-        setAttribute.setValue(JSON.stringify(newValue));
-    }, [setAttribute]);
-    */
+    const onChange = useCallback(
+        (newValue: string[]) => {
+            inputType === "MENDIX"
+                ? association.setValue(
+                      data.filter(option => newValue.includes(option.id)).map(option => option.objectItem)
+                  )
+                : selectedAttribute.setValue(JSON.stringify(newValue));
+        },
+        [selectedAttribute, association, data]
+    );
 
     return (
-            <TreeSelect
-                id={name}
-                tabIndex={tabIndex}
-                aria-describedby={id}
-                treeData={data}
-                showSearch
-                value={value}
-                popupMatchSelectWidth
-                placeholder="Please select"
-                allowClear
-                multiple
-                treeDefaultExpandAll
-                onChange={onChange}
-                treeCheckable
-                showCheckedStrategy={TreeSelect.SHOW_ALL}
-                treeNodeFilterProp="label"
-                treeLine
-            />
+        <TreeSelect
+            id={name}
+            tabIndex={tabIndex}
+            aria-describedby={id}
+            treeData={data}
+            showSearch
+            value={value}
+            popupMatchSelectWidth
+            placeholder={placeholder.value}
+            allowClear
+            multiple
+            treeDefaultExpandAll={expandAll}
+            onChange={onChange}
+            treeCheckable={checkable}
+            showCheckedStrategy={
+                selectionType === "ALL"
+                    ? TreeSelect.SHOW_ALL
+                    : selectionType === "PARENT"
+                    ? TreeSelect.SHOW_PARENT
+                    : TreeSelect.SHOW_CHILD
+            }
+            treeNodeFilterProp="label"
+            treeLine={showTreeLines}
+            treeDataSimpleMode={inputType === "MENDIX" || treeDataType === "FLAT"}
+        />
     );
 }
