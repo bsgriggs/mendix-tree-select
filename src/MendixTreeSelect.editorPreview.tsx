@@ -3,7 +3,9 @@ import { MendixTreeSelectPreviewProps } from "../typings/MendixTreeSelectProps";
 import { TreeSelect } from "antd";
 
 export function preview({
-    association,
+    referenceType,
+    reference,
+    referenceSet,
     checkable,
     expandAll,
     inputType,
@@ -38,7 +40,9 @@ export function preview({
         <TreeSelect
             treeData={data}
             showSearch
-            value={inputType === "MENDIX" ? association : selectedAttribute}
+            value={
+                inputType === "MENDIX" ? (referenceType === "REFERENCE" ? reference : referenceSet) : selectedAttribute
+            }
             popupMatchSelectWidth
             placeholder={placeholder}
             allowClear

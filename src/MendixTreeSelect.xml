@@ -55,6 +55,14 @@
                     <enumerationValue key="CHILDREN">Children only</enumerationValue>
                 </enumerationValues>
             </property>
+            <property key="referenceType" type="enumeration" defaultValue="REFERENCE">
+                <caption>Reference type</caption>
+                <description></description>
+                <enumerationValues>
+                    <enumerationValue key="REFERENCE">Reference</enumerationValue>
+                    <enumerationValue key="REFERENCE_SET">Reference Set</enumerationValue>
+                </enumerationValues>
+            </property>
             <property key="dataSource" type="datasource" isList="true">
                 <caption>Data source</caption>
                 <description></description>
@@ -84,9 +92,17 @@
                     <attributeType name="Integer" />
                 </attributeTypes>
             </property>
-            <property key="association" type="association" selectableObjects="dataSource"
+            <property key="reference" type="association" selectableObjects="dataSource"
                 required="true" onChange="onChange">
-                <caption>Association</caption>
+                <caption>Reference</caption>
+                <description>Reference to map the selected item</description>
+                <associationTypes>
+                    <associationType name="Reference" />
+                </associationTypes>
+            </property>
+            <property key="referenceSet" type="association" selectableObjects="dataSource"
+                required="true" onChange="onChange">
+                <caption>Reference set</caption>
                 <description>Reference set to map the selected items</description>
                 <associationTypes>
                     <associationType name="ReferenceSet" />

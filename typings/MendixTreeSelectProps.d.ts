@@ -9,6 +9,7 @@ import {
     ListValue,
     ListAttributeValue,
     ListExpressionValue,
+    ReferenceValue,
     ReferenceSetValue
 } from "mendix";
 import { Big } from "big.js";
@@ -16,6 +17,8 @@ import { Big } from "big.js";
 export type InputTypeEnum = "MENDIX" | "JSON";
 
 export type SelectionTypeEnum = "ALL" | "PARENT" | "CHILDREN";
+
+export type ReferenceTypeEnum = "REFERENCE" | "REFERENCE_SET";
 
 export type TreeDataTypeEnum = "FLAT" | "TREE";
 
@@ -29,11 +32,13 @@ export interface MendixTreeSelectContainerProps {
     showTreeLines: boolean;
     inputType: InputTypeEnum;
     selectionType: SelectionTypeEnum;
+    referenceType: ReferenceTypeEnum;
     dataSource: ListValue;
     label: ListExpressionValue<string>;
     objKey: ListAttributeValue<string | Big>;
     parentKey: ListAttributeValue<string | Big>;
-    association: ReferenceSetValue;
+    reference: ReferenceValue;
+    referenceSet: ReferenceSetValue;
     treeDataType: TreeDataTypeEnum;
     selectableJSON: DynamicValue<string>;
     selectedAttribute: EditableValue<string>;
@@ -47,11 +52,13 @@ export interface MendixTreeSelectPreviewProps {
     showTreeLines: boolean;
     inputType: InputTypeEnum;
     selectionType: SelectionTypeEnum;
+    referenceType: ReferenceTypeEnum;
     dataSource: {} | { type: string } | null;
     label: string;
     objKey: string;
     parentKey: string;
-    association: string;
+    reference: string;
+    referenceSet: string;
     treeDataType: TreeDataTypeEnum;
     selectableJSON: string;
     selectedAttribute: string;

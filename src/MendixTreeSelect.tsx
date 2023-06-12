@@ -1,4 +1,4 @@
-import { ReactElement, createElement, useCallback, useEffect, useState } from "react";
+import { ReactElement, createElement, useCallback, useEffect, useMemo, useState } from "react";
 import { MendixTreeSelectContainerProps } from "../typings/MendixTreeSelectProps";
 import { TreeSelect } from "antd";
 import { ValueStatus, ObjectItem } from "mendix";
@@ -8,7 +8,9 @@ export function MendixTreeSelect({
     id,
     name,
     tabIndex,
-    association,
+    referenceType,
+    reference,
+    referenceSet,
     dataSource,
     objKey,
     label,
@@ -24,7 +26,20 @@ export function MendixTreeSelect({
     treeDataType
 }: MendixTreeSelectContainerProps): ReactElement {
     const [data, setData] = useState<OptionMap[]>([]);
-    const [value, setValue] = useState<string[]>([]);
+    const [value, setValue] = useState<undefined | string | string[]>();
+
+    const readOnly = useMemo(() => {
+        if (inputType === "MENDIX") {
+            if (referenceType === "REFERENCE") {
+                return reference.readOnly;
+            } else {
+                return referenceSet.readOnly;
+            }
+        } else {
+            return selectedAttribute.readOnly;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [reference, referenceSet, selectedAttribute]);
 
     // Mendix Convert Data
     useEffect(() => {
@@ -36,11 +51,15 @@ export function MendixTreeSelect({
 
     // Mendix Convert Current Value
     useEffect(() => {
-        if (inputType === "MENDIX" && association.status === ValueStatus.Available) {
-            setValue(convertCurrentValue(association.value as ObjectItem[]));
+        if (inputType === "MENDIX") {
+            if (referenceType === "REFERENCE" && reference.status === ValueStatus.Available) {
+                setValue(reference.value ? objKey.get(reference.value).displayValue : undefined);
+            } else if (referenceType === "REFERENCE_SET" && referenceSet.status === ValueStatus.Available) {
+                setValue(convertCurrentValueList(referenceSet.value as ObjectItem[]));
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [association]);
+    }, [reference, referenceSet]);
 
     // JSON Convert Data
     useEffect(() => {
@@ -53,7 +72,11 @@ export function MendixTreeSelect({
     // JSON Convert Current Value
     useEffect(() => {
         if (inputType === "JSON" && selectedAttribute.status === ValueStatus.Available) {
-            setValue(JSON.parse(selectedAttribute.value as string));
+            if (selectedAttribute.displayValue.trim() !== "") {
+                setValue(JSON.parse(selectedAttribute.displayValue));
+            } else {
+                setValue(undefined);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedAttribute]);
@@ -73,7 +96,7 @@ export function MendixTreeSelect({
         [objKey, label, parentKey]
     );
 
-    const convertCurrentValue = useCallback(
+    const convertCurrentValueList = useCallback(
         (list: ObjectItem[]): string[] => {
             return list.map(obj => objKey.get(obj).displayValue);
         },
@@ -81,16 +104,21 @@ export function MendixTreeSelect({
     );
 
     const onChange = useCallback(
-        (newValue: string[]) => {
+        (newValue: string | string[]) => {
             if (inputType === "MENDIX") {
-                association.setValue(
-                    data.filter(option => newValue.includes(option.id)).map(option => option.objectItem)
-                );
+                if (referenceType === "REFERENCE") {
+                    reference.setValue(data.find(option => option.id === newValue)?.objectItem);
+                } else {
+                    referenceSet.setValue(
+                        data.filter(option => newValue.includes(option.id)).map(option => option.objectItem)
+                    );
+                }
             } else {
                 selectedAttribute.setValue(JSON.stringify(newValue));
             }
         },
-        [selectedAttribute, association, data, inputType]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [selectedAttribute, reference, referenceSet, data]
     );
 
     return (
@@ -104,10 +132,10 @@ export function MendixTreeSelect({
             popupMatchSelectWidth
             placeholder={placeholder.value}
             allowClear
-            multiple
+            multiple={referenceType === "REFERENCE_SET"}
             treeDefaultExpandAll={expandAll}
             onChange={onChange}
-            treeCheckable={checkable}
+            treeCheckable={checkable && referenceType !== "REFERENCE"}
             showCheckedStrategy={
                 selectionType === "ALL"
                     ? TreeSelect.SHOW_ALL
@@ -118,7 +146,7 @@ export function MendixTreeSelect({
             treeNodeFilterProp="label"
             treeLine={showTreeLines}
             treeDataSimpleMode={inputType === "MENDIX" || treeDataType === "FLAT"}
-            disabled={inputType === "MENDIX" ? association.readOnly : selectedAttribute.readOnly}
+            disabled={readOnly}
         />
     );
 }

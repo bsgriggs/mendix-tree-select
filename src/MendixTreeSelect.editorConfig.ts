@@ -1,5 +1,5 @@
 import { MendixTreeSelectPreviewProps } from "../typings/MendixTreeSelectProps";
-import { hidePropertiesIn } from "./utils/PageEditorUtils";
+import { hidePropertiesIn, hidePropertyIn } from "./utils/PageEditorUtils";
 
 export type Platform = "web" | "desktop";
 
@@ -105,7 +105,20 @@ export function getProperties(
     if (_values.inputType === "MENDIX") {
         hidePropertiesIn(defaultProperties, _values, ["selectableJSON", "treeDataType", "selectedAttribute"]);
     } else {
-        hidePropertiesIn(defaultProperties, _values, ["association", "dataSource", "objKey", "parentKey", "label"]);
+        hidePropertiesIn(defaultProperties, _values, [
+            "reference",
+            "referenceSet",
+            "dataSource",
+            "objKey",
+            "parentKey",
+            "label"
+        ]);
+    }
+
+    if (_values.referenceType === "REFERENCE") {
+        hidePropertiesIn(defaultProperties, _values, ["referenceSet", "checkable"]);
+    } else {
+        hidePropertyIn(defaultProperties, _values, "reference");
     }
 
     return defaultProperties;

@@ -8,6 +8,7 @@ Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-s
 - Can show the options as checkboxes or cells
 - Option to use tree lines
 - Option to have all context expanded or collapsed by default
+- Select a reference or reference set
 
 ## Usage  
 ### Domain Model  
@@ -20,6 +21,7 @@ Your module must include an attribute that uniquely defines an object. For me, t
  
 ### General Settings  
 ![Customization](https://github.com/bsgriggs/mendix-tree-select/blob/media/Customization.png)  
+*Note: Checkable is only allowed if Reference Type = Reference Set*
 ![Selectable Objects Common](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjects_Common.png)  
 **Input Type** - How the widget expects to receive the selectable objects and how the widget sets the selected value. Detailed setup for both types below.  
 **Selection Type** 
