@@ -12,7 +12,7 @@ Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-s
 
 ## Usage  
 ### Domain Model  
-The following domain model is an just an example. However, your module must include an attribute that uniquely defines an object. For me, this is the ItemNo AutoNumber.
+The following domain model is an just an example. However, your module must include an attribute that uniquely defines an object. For me, this is the ItemNo AutoNumber.  
 ![Domain](https://github.com/bsgriggs/mendix-tree-select/blob/media/Domain.png)  
 *Notes:*
 - The "Item" entity will be displayed in the dropdown
@@ -22,20 +22,73 @@ The following domain model is an just an example. However, your module must incl
 ### General Settings  
 ![Customization](https://github.com/bsgriggs/mendix-tree-select/blob/media/Customization.png)  
 ![Selectable Objects Common](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjects_Common.png)  
-**Input Type - ** How the widget expects to receive the selectable objects and how the widget sets the selected value (Details below)
+**Input Type** - How the widget expects to receive the selectable objects and how the widget sets the selected value. Detailed setup for both types below. 
 **Selection Type**
-| All | Parent only | Children only |
-| --- | --- | --- |
-| ![Selection Type All](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_All.png) | ![Selection Type Parent](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_Parent.png) | ![Selection Type Child](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_Child.png) |
-
+<table>
+ <tr>
+  <td>All</td>
+  <td>Parent only</td>
+  <td>Children only</td>
+ </tr>
+  <td> <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_All.png"  alt="Selection Type All" width="360px" height="auto" ></td>
+ <td> <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_Parent.png"  alt="Selection Type Parent" width="360px" height="auto" ></td>
+ <td> <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_Children.png"  alt="Selection Type Children" width="360px" height="auto" ></td>
+</table>
 
 ### Input Type: Mendix  
-![Mendix Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectsMendix.png)  
-Selection type 
+The widget will generate the widget's structure using the selected data source. Note: This can lead to performance issues with large data sets.  
+![Mendix Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectMendix.png)  
 
 ### Input Type: JSON  
-![JSON Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectsJSON.png)  
+![JSON Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectJSON.png)  
+**Tree data type** - Controls which JSON structure the widget expects. (Use these to create a JSON structure in Mendix)
+<table>
+<tr>
+<td> Flat </td> <td> Tree </td>
+</tr>
+<tr>
+<td>
+ 
+```json
+[
+    {
+        "label": "",
+        "value": 0,
+        "id": 0,
+        "pId": 0
+    }
+]
+```
 
+</td>
+<td>
+
+```json
+[
+    {
+        "label": "Node1",
+        "value": 0,
+        "children": [
+            {
+                "label": "Child Node1",
+                "value": 0,
+                "children": [
+                    {
+                        "label": "Grand Child Node1",
+                        "value": 0
+                    }
+                ]
+            }
+        ]
+    }
+]
+```
+ 
+ *Note:* You can add as much depth as you need. Just add more children to the lowest level of the JSON structure
+
+</td>
+</tr>
+</table>
 
 ## Demo project
 https://demo-antdwidgets100-accp.apps.ap-2a.mendixcloud.com/p/treeselect
