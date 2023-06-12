@@ -26,32 +26,36 @@ export function MendixTreeSelect({
     const [data, setData] = useState<OptionMap[]>([]);
     const [value, setValue] = useState<string[]>([]);
 
-    //Mendix Convert Data
+    // Mendix Convert Data
     useEffect(() => {
         if (inputType === "MENDIX" && dataSource.status === ValueStatus.Available && dataSource.items) {
             setData(convertOptionMap(dataSource.items));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataSource]);
 
-    //Mendix Convert Current Value
+    // Mendix Convert Current Value
     useEffect(() => {
         if (inputType === "MENDIX" && association.status === ValueStatus.Available) {
             setValue(convertCurrentValue(association.value as ObjectItem[]));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [association]);
 
-    //JSON Convert Data
+    // JSON Convert Data
     useEffect(() => {
         if (inputType === "JSON" && selectableJSON.status === ValueStatus.Available) {
             setData(JSON.parse(selectableJSON.value));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectableJSON]);
 
-    //JSON Convert Current Value
+    // JSON Convert Current Value
     useEffect(() => {
         if (inputType === "JSON" && selectedAttribute.status === ValueStatus.Available) {
             setValue(JSON.parse(selectedAttribute.value as string));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedAttribute]);
 
     const convertOptionMap = useCallback(
@@ -66,22 +70,27 @@ export function MendixTreeSelect({
                 };
             });
         },
-        [objKey, label, parentKey, dataSource]
+        [objKey, label, parentKey]
     );
 
-    const convertCurrentValue = useCallback((list: ObjectItem[]): string[] => {
-        return list.map(obj => objKey.get(obj).displayValue);
-    }, []);
+    const convertCurrentValue = useCallback(
+        (list: ObjectItem[]): string[] => {
+            return list.map(obj => objKey.get(obj).displayValue);
+        },
+        [objKey]
+    );
 
     const onChange = useCallback(
         (newValue: string[]) => {
-            inputType === "MENDIX"
-                ? association.setValue(
-                      data.filter(option => newValue.includes(option.id)).map(option => option.objectItem)
-                  )
-                : selectedAttribute.setValue(JSON.stringify(newValue));
+            if (inputType === "MENDIX") {
+                association.setValue(
+                    data.filter(option => newValue.includes(option.id)).map(option => option.objectItem)
+                );
+            } else {
+                selectedAttribute.setValue(JSON.stringify(newValue));
+            }
         },
-        [selectedAttribute, association, data]
+        [selectedAttribute, association, data, inputType]
     );
 
     return (

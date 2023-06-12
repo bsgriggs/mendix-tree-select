@@ -15,25 +15,24 @@ export function preview({
     showTreeLines,
     treeDataType
 }: MendixTreeSelectPreviewProps): ReactElement {
-
     const data = [
         {
-            "label": "Node1",
-            "value":"1",
-            "children": [
+            label: "Node1",
+            value: "1",
+            children: [
                 {
-                    "label": "Child Node1",
-                    "value":"2",
-                    "children": [
+                    label: "Child Node1",
+                    value: "2",
+                    children: [
                         {
-                            "label": "Grand Child Node1",
-                            "value": "3"
+                            label: "Grand Child Node1",
+                            value: "3"
                         }
                     ]
                 }
             ]
         }
-    ]
+    ];
 
     return (
         <TreeSelect

@@ -102,8 +102,7 @@ export function getProperties(
     _values: MendixTreeSelectPreviewProps,
     defaultProperties: Properties /* , target: Platform*/
 ): Properties {
-    
-    if (_values.inputType === "MENDIX"){
+    if (_values.inputType === "MENDIX") {
         hidePropertiesIn(defaultProperties, _values, ["selectableJSON", "treeDataType", "selectedAttribute"]);
     } else {
         hidePropertiesIn(defaultProperties, _values, ["association", "dataSource", "objKey", "parentKey", "label"]);
