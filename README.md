@@ -1,6 +1,6 @@
 ## TreeSelect
 Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-select). The widget is designed to display a list of objects that have a self-association or do raw JSON input and output.  
-![All](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_All.png)  
+![Demo image](https://github.com/bsgriggs/mendix-tree-select/blob/media/DemoImage.png)  
 
 ## Features
 - Search the data set
@@ -11,18 +11,18 @@ Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-s
 
 ## Usage  
 ### Domain Model  
-The following domain model is an just an example. However, your module must include an attribute that uniquely defines an object. For me, this is the ItemNo AutoNumber.  
+Your module must include an attribute that uniquely defines an object. For me, this is the ItemNo AutoNumber.  
 ![Domain](https://github.com/bsgriggs/mendix-tree-select/blob/media/Domain.png)  
-*Notes:*
+*Note:*
 - The "Item" entity will be displayed in the dropdown
-- The "ItemSelection" entity is the entity that holds the association that is set when option(s) are selected.
-- If you are using Input Type "JSON", you will need 2 non-persistent entities to store the state of the widget and manage the selected objects.
+- The "ItemSelection" entity is the owner of the association that is set when option(s) are selected
+- If you are using Input Type "JSON", you will need 2 non-persistent entities to store the state of the widget and manage the selected objects
  
 ### General Settings  
 ![Customization](https://github.com/bsgriggs/mendix-tree-select/blob/media/Customization.png)  
 ![Selectable Objects Common](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjects_Common.png)  
-**Input Type** - How the widget expects to receive the selectable objects and how the widget sets the selected value. Detailed setup for both types below. 
-**Selection Type**
+**Input Type** - How the widget expects to receive the selectable objects and how the widget sets the selected value. Detailed setup for both types below.  
+**Selection Type** 
 <table>
  <tr>
   <td>All</td>
@@ -35,12 +35,17 @@ The following domain model is an just an example. However, your module must incl
 </table>
 
 ### Input Type: Mendix  
-The widget will generate the widget's structure using the selected data source. Note: This can lead to performance issues with large data sets.  
+The widget will generate the widget's structure using the selected data source. 
 ![Mendix Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectMendix.png)  
+*Note:* 
+- Parent key must be the SAME attribute as the key but navigates across the self-association. It is used to match each child with by its parent's key
+- If the parent key for an object is empty or is not found, the widget will display that record as a root option
+- Association is the reference set on the page object that get set when the user selects an option
+- Large data sets can run into performance issues while converting the data, consider using JSON mode
 
 ### Input Type: JSON  
 ![JSON Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectJSON.png)  
-**Tree data type** - Controls which JSON structure the widget expects. (Use these to create a JSON structure in Mendix). Any unique integers in the structures below can be changed to strings if your unique identifier is also a string.
+**Tree data type** - Controls which JSON structure the widget expects. (Use these to create a JSON structure in Mendix). If your unique identifier is a string, change the integers in the structures below to also be a string.
 <table>
 <tr>
 <td> Flat </td> <td> Tree </td>
@@ -91,7 +96,7 @@ The widget will generate the widget's structure using the selected data source. 
 
 **Input Type JSON Example**
 
-1. You will then need to create a JSON Structure with simply:
+1. Create a JSON Structure with the following. If your unique identifier is a string, encase the 1 with quotation marks.
 ```json
 [1]
 ```
@@ -110,7 +115,7 @@ The widget will generate the widget's structure using the selected data source. 
 4. The data view returns the TreeSelectHelper from the domain model above.  
 ![DS_TreeSelectHelper](https://github.com/bsgriggs/mendix-tree-select/blob/media/DS_TreeSelectHelper.png)  
 4a. The first export should be use the Export Mapping from step 2.  
-4b. If you're using Tree Data Type "Tree", the retrieve from database should ONLY return the root level objects. Children will be retrieved by the subsequent export mapping. For Tree Data Type "Flat", simply retrieve all the objects you want displayed.  
+4b. For Tree Data Type "Flat", retrieve all the objects you want displayed. For Tree Data Type "Tree", the retrieve from database should ONLY return the root level objects. Children will be retrieved by the subsequent export mapping.  
 4c. Use an export mapping to get the JSON structure for your selectable objects. These should be based on the JSON structures in the Tree Data Type section above.   
 <table>
  <tr>
@@ -133,10 +138,10 @@ The widget will generate the widget's structure using the selected data source. 
  </td>
 </table>
 
-5. Add an On change microflow to convert the JSON stored on the Selected attribute back to Mendix objects.  
+5. Add an on change microflow that converts the JSON stored on the "selected attribute" back to Mendix objects.  
 ![on change](https://github.com/bsgriggs/mendix-tree-select/blob/media/ACT_ItemSelect_OnChange.png)  
-5a. Use an Import mapping using the JSON snippet in step 2.  
-5b. Iterate that list and retrieve the original objects by their unique identifier.  
+5a. Use an Import mapping using the JSON snippet in step 2 and import from $TreeSelectHelper/Selected.  
+5b. Iterate that list and retrieve the original objects by their unique identifier attribute.  
 5c. Change the page object's reference set to the list retrieve by the loop.  
 
 ## Demo project
