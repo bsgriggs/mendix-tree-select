@@ -2,7 +2,6 @@ import { ReactElement, createElement, useCallback, useEffect, useState } from "r
 import { MendixTreeSelectContainerProps } from "../typings/MendixTreeSelectProps";
 import { TreeSelect } from "antd";
 import { ValueStatus, ObjectItem } from "mendix";
-import "./ui/TreeSelect.css";
 import { OptionMap } from "typings/OptionMap";
 
 export function MendixTreeSelect({
@@ -110,6 +109,7 @@ export function MendixTreeSelect({
             treeNodeFilterProp="label"
             treeLine={showTreeLines}
             treeDataSimpleMode={inputType === "MENDIX" || treeDataType === "FLAT"}
+            disabled={selectedAttribute.readOnly || association.readOnly}
         />
     );
 }

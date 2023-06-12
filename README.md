@@ -1,5 +1,5 @@
 ## TreeSelect
-[Mendix widget to use AntDesign TreeSelect]
+Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-select)
 
 ## Features
 [feature highlights]
