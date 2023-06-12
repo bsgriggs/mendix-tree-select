@@ -109,7 +109,7 @@ export function MendixTreeSelect({
             treeNodeFilterProp="label"
             treeLine={showTreeLines}
             treeDataSimpleMode={inputType === "MENDIX" || treeDataType === "FLAT"}
-            disabled={selectedAttribute.readOnly || association.readOnly}
+            disabled={inputType === "MENDIX" ? association.readOnly : selectedAttribute.readOnly}
         />
     );
 }
