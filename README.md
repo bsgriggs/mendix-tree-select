@@ -21,6 +21,13 @@ The following domain model is an just an example. However, your module must incl
  
 ### General Settings  
 ![Customization](https://github.com/bsgriggs/mendix-tree-select/blob/media/Customization.png)  
+![Selectable Objects Common](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjects_Common.png)  
+**Input Type - ** How the widget expects to receive the selectable objects and how the widget sets the selected value (Details below)
+**Selection Type**
+| All | Parent only | Children only |
+| --- | --- | --- |
+| ![Selection Type All](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_All.png) | ![Selection Type Parent](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_Parent.png) | ![Selection Type Child](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectionType_Child.png) |
+
 
 ### Input Type: Mendix  
 ![Mendix Selectable Objects](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjectsMendix.png)  
