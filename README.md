@@ -14,7 +14,7 @@ Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-s
 <details>
 <summary><h3>1. Add this widget to the Mendix Project</h3></summary>
 
-1. Download the mpk file from [here](https://github.com/bsgriggs/mendix-tree-select/releases).
+1. Download the mpk file from [GitHub](https://github.com/bsgriggs/mendix-tree-select/releases) or the Mendix Marketplace.
 2. Copy the mpk file to your Mendix Project directory `{YourMendixProjectFolder}/widgets/`.
 3. Open your Mendix Project with Mendix Studio Pro and click on the menu `Menu > App > Synchronize App Directory`.
  
