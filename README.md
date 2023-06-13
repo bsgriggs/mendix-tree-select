@@ -22,7 +22,7 @@ Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-s
 <details>
 <summary><h3>2. Domain model properties</h3></summary>
 
-Your module must include an attribute that uniquely defines an object. For me, this is the ItemNo AutoNumber.  
+The entity you want to display must include an attribute that uniquely identifies an object. For me, this is the ItemNo AutoNumber.  
 ![Domain](https://github.com/bsgriggs/mendix-tree-select/blob/media/Domain.png)  
 *Note:*
 - The "Item" entity will be displayed in the dropdown
