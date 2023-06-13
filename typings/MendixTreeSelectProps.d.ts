@@ -3,15 +3,7 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix UI Content Team
  */
-import {
-    DynamicValue,
-    EditableValue,
-    ListValue,
-    ListAttributeValue,
-    ListExpressionValue,
-    ReferenceValue,
-    ReferenceSetValue
-} from "mendix";
+import { DynamicValue, EditableValue, ListValue, ListAttributeValue, ListExpressionValue, ReferenceValue, ReferenceSetValue } from "mendix";
 import { Big } from "big.js";
 
 export type InputTypeEnum = "MENDIX" | "JSON";
