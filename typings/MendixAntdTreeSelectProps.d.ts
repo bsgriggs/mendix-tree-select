@@ -1,5 +1,5 @@
 /**
- * This file was generated from MendixTreeSelect.xml
+ * This file was generated from MendixAntdTreeSelect.xml
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix UI Content Team
  */
@@ -14,7 +14,7 @@ export type ReferenceTypeEnum = "REFERENCE" | "REFERENCE_SET";
 
 export type TreeDataTypeEnum = "FLAT" | "TREE";
 
-export interface MendixTreeSelectContainerProps {
+export interface MendixAntdTreeSelectContainerProps {
     name: string;
     tabIndex?: number;
     id: string;
@@ -36,7 +36,7 @@ export interface MendixTreeSelectContainerProps {
     selectedAttribute: EditableValue<string>;
 }
 
-export interface MendixTreeSelectPreviewProps {
+export interface MendixAntdTreeSelectPreviewProps {
     readOnly: boolean;
     placeholder: string;
     expandAll: boolean;

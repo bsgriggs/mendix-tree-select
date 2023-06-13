@@ -1,5 +1,5 @@
 import { ReactElement, createElement } from "react";
-import { MendixTreeSelectPreviewProps } from "../typings/MendixTreeSelectProps";
+import { MendixAntdTreeSelectPreviewProps } from "../typings/MendixAntdTreeSelectProps";
 import { TreeSelect } from "antd";
 
 export function preview({
@@ -16,7 +16,7 @@ export function preview({
     selectionType,
     showTreeLines,
     treeDataType
-}: MendixTreeSelectPreviewProps): ReactElement {
+}: MendixAntdTreeSelectPreviewProps): ReactElement {
     const data = [
         {
             label: "Node1",

@@ -1,10 +1,10 @@
 import { ReactElement, createElement, useCallback, useEffect, useMemo, useState } from "react";
-import { MendixTreeSelectContainerProps } from "../typings/MendixTreeSelectProps";
+import { MendixAntdTreeSelectContainerProps } from "../typings/MendixAntdTreeSelectProps";
 import { TreeSelect } from "antd";
 import { ValueStatus, ObjectItem } from "mendix";
 import { OptionMap } from "typings/OptionMap";
 
-export function MendixTreeSelect({
+export function MendixAntdTreeSelect({
     id,
     name,
     tabIndex,
@@ -24,7 +24,7 @@ export function MendixTreeSelect({
     selectedAttribute,
     showTreeLines,
     treeDataType
-}: MendixTreeSelectContainerProps): ReactElement {
+}: MendixAntdTreeSelectContainerProps): ReactElement {
     const [data, setData] = useState<OptionMap[]>([]);
     const [value, setValue] = useState<undefined | string | string[]>();
 
@@ -120,6 +120,8 @@ export function MendixTreeSelect({
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [selectedAttribute, reference, referenceSet, data]
     );
+
+    console.info("props", {selectableJSON, selectedAttribute});
 
     return (
         <TreeSelect

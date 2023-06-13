@@ -1,4 +1,4 @@
-## TreeSelect
+## Mendix Antd Tree Select
 Mendix widget to use [AntDesign TreeSelect](https://ant.design/components/tree-select). The widget is designed to display a list of objects that have a self-association or do raw JSON input and output.  
 ![Demo image](https://github.com/bsgriggs/mendix-tree-select/blob/media/DemoImage.png)  
 

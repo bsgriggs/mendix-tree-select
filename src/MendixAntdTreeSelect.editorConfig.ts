@@ -1,4 +1,4 @@
-import { MendixTreeSelectPreviewProps } from "../typings/MendixTreeSelectProps";
+import { MendixAntdTreeSelectPreviewProps } from "../typings/MendixAntdTreeSelectProps";
 import { hidePropertiesIn, hidePropertyIn } from "./utils/PageEditorUtils";
 
 export type Platform = "web" | "desktop";
@@ -99,7 +99,7 @@ export type PreviewProps =
     | DatasourceProps;
 
 export function getProperties(
-    _values: MendixTreeSelectPreviewProps,
+    _values: MendixAntdTreeSelectPreviewProps,
     defaultProperties: Properties /* , target: Platform*/
 ): Properties {
     if (_values.inputType === "MENDIX") {

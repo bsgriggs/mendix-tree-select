@@ -1,6 +1,6 @@
 {
-  "name": "mendixtreeselect",
-  "widgetName": "MendixTreeSelect",
+  "name": "mendixantdtreeselect",
+  "widgetName": "MendixAntdTreeSelect",
   "version": "1.1.0",
   "description": "Mendix widget to use AntDesign TreeSelect",
   "copyright": "Benjamin Griggs 2023",

@@ -2,7 +2,7 @@
 /**
  * TODO: Include tests for methods
  */
-import { Properties, Property, PropertyGroup } from "../MendixTreeSelect.editorConfig";
+import { Properties, Property, PropertyGroup } from "../MendixAntdTreeSelect.editorConfig";
 
 declare type Option<T> = T | undefined;
 
