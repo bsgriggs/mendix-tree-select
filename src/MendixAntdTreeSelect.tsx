@@ -121,8 +121,6 @@ export function MendixAntdTreeSelect({
         [selectedAttribute, reference, referenceSet, data]
     );
 
-    console.info("props", {selectableJSON, selectedAttribute});
-
     return (
         <TreeSelect
             id={name}
