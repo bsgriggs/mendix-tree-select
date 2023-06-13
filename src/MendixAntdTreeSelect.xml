@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="mendix.mendixantdtreeselect.MendixAntdTreeSelect" pluginWidget="true" needsEntityContext="true"
+<widget id="mendix.mendixantdtreeselect.MendixAntdTreeSelect" pluginWidget="true"
+    needsEntityContext="true"
     offlineCapable="true"
     supportedPlatform="Web"
     xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,7 +17,7 @@
                 <systemProperty key="Visibility"></systemProperty>
             </propertyGroup>
             <propertyGroup caption="General">
-            <systemProperty key="Label"></systemProperty>
+                <systemProperty key="Label"></systemProperty>
                 <property key="placeholder" type="textTemplate">
                     <caption>Placeholder</caption>
                     <description>Text shown if no items are selected</description>
@@ -47,6 +48,14 @@
                     <enumerationValue key="JSON">JSON</enumerationValue>
                 </enumerationValues>
             </property>
+            <property key="referenceType" type="enumeration" defaultValue="REFERENCE">
+                <caption>Reference type</caption>
+                <description></description>
+                <enumerationValues>
+                    <enumerationValue key="REFERENCE">Reference</enumerationValue>
+                    <enumerationValue key="REFERENCE_SET">Reference Set</enumerationValue>
+                </enumerationValues>
+            </property>
             <property key="selectionType" type="enumeration" defaultValue="ALL">
                 <caption>Selection type</caption>
                 <description>What to return if a parent and all of its children are selected</description>
@@ -54,14 +63,6 @@
                     <enumerationValue key="ALL">All</enumerationValue>
                     <enumerationValue key="PARENT">Parent only</enumerationValue>
                     <enumerationValue key="CHILDREN">Children only</enumerationValue>
-                </enumerationValues>
-            </property>
-            <property key="referenceType" type="enumeration" defaultValue="REFERENCE">
-                <caption>Reference type</caption>
-                <description></description>
-                <enumerationValues>
-                    <enumerationValue key="REFERENCE">Reference</enumerationValue>
-                    <enumerationValue key="REFERENCE_SET">Reference Set</enumerationValue>
                 </enumerationValues>
             </property>
             <property key="dataSource" type="datasource" isList="true">

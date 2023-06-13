@@ -116,7 +116,7 @@ export function getProperties(
     }
 
     if (_values.referenceType === "REFERENCE") {
-        hidePropertiesIn(defaultProperties, _values, ["referenceSet", "checkable"]);
+        hidePropertiesIn(defaultProperties, _values, ["referenceSet", "checkable", "selectionType"]);
     } else {
         hidePropertyIn(defaultProperties, _values, "reference");
     }

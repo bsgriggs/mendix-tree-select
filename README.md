@@ -138,7 +138,7 @@ The entity you want to display must include an attribute that uniquely identifie
    <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/Export_Flat.png"  alt="Export flat" width="100%" height="auto" >
    <p>Label - the text shown for the option</p>
    <p>Value & Id & PId - should all be the SAME unique identifier for the object</p>
-   <p>PId must have a conversion Microflow get the parent's unique identifer. Example: </p>
+   <p>PId must have a conversion Microflow get the parent's unique identifier. Example: </p>
    <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/MAP_Item_ParentID.png" alt="Get parent id" width="100%" height="auto" >
    <p></p>
  </td>
@@ -187,7 +187,7 @@ Then, use that JSON Structure to create the following Import and Export Mappings
    <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/Export_Flat.png"  alt="Export flat" width="100%" height="auto" >
    <p>Label - the text shown for the option</p>
    <p>Value & Id & PId - should all be the SAME unique identifier for the object</p>
-   <p>PId must have a conversion Microflow get the parent's unique identifer. Example: </p>
+   <p>PId must have a conversion Microflow get the parent's unique identifier. Example: </p>
    <img src="https://github.com/bsgriggs/mendix-tree-select/blob/media/MAP_Item_ParentID.png" alt="Get parent id" width="100%" height="auto" >
    <p></p>
  </td>

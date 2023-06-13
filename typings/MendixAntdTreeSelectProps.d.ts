@@ -3,22 +3,14 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix UI Content Team
  */
-import {
-    DynamicValue,
-    EditableValue,
-    ListValue,
-    ListAttributeValue,
-    ListExpressionValue,
-    ReferenceValue,
-    ReferenceSetValue
-} from "mendix";
+import { DynamicValue, EditableValue, ListValue, ListAttributeValue, ListExpressionValue, ReferenceValue, ReferenceSetValue } from "mendix";
 import { Big } from "big.js";
 
 export type InputTypeEnum = "MENDIX" | "JSON";
 
-export type SelectionTypeEnum = "ALL" | "PARENT" | "CHILDREN";
-
 export type ReferenceTypeEnum = "REFERENCE" | "REFERENCE_SET";
+
+export type SelectionTypeEnum = "ALL" | "PARENT" | "CHILDREN";
 
 export type TreeDataTypeEnum = "FLAT" | "TREE";
 
@@ -31,8 +23,8 @@ export interface MendixAntdTreeSelectContainerProps {
     checkable: boolean;
     showTreeLines: boolean;
     inputType: InputTypeEnum;
-    selectionType: SelectionTypeEnum;
     referenceType: ReferenceTypeEnum;
+    selectionType: SelectionTypeEnum;
     dataSource: ListValue;
     label: ListExpressionValue<string>;
     objKey: ListAttributeValue<string | Big>;
@@ -51,8 +43,8 @@ export interface MendixAntdTreeSelectPreviewProps {
     checkable: boolean;
     showTreeLines: boolean;
     inputType: InputTypeEnum;
-    selectionType: SelectionTypeEnum;
     referenceType: ReferenceTypeEnum;
+    selectionType: SelectionTypeEnum;
     dataSource: {} | { type: string } | null;
     label: string;
     objKey: string;
