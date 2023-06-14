@@ -7,6 +7,8 @@
     xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
     <name>Mendix Antd Tree Select</name>
     <description>Mendix widget to use AntDesign TreeSelect</description>
+    <studioProCategory>Ant Design Widgets</studioProCategory>
+    <studioCategory>Ant Design Widgets</studioCategory>
     <helpUrl>https://github.com/bsgriggs/mendix-tree-select/blob/master/README.md</helpUrl>
     <properties>
         <propertyGroup caption="Customization">

@@ -224,3 +224,6 @@ https://github.com/bsgriggs/mendix-tree-select/issues
     - the bundle will be included in the `deployment` and `widgets` folder of the Mendix test project.
 
 [AntDesign TreeSelect](https://ant.design/components/tree-select)
+
+Benjamin Griggs
+Jonathan Schmitt
