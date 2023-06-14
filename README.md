@@ -37,8 +37,8 @@ The entity you want to display must include an attribute that uniquely identifie
 *Note: Checkable is only allowed if Reference Type = Reference Set*
 ![Selectable Objects Common](https://github.com/bsgriggs/mendix-tree-select/blob/media/SelectableObjects_Common.png)  
 **Input Type** - How the widget expects to receive the selectable objects and how the widget sets the selected value. Detailed setup for both types below.  
-**Reference type** - Should the user be able to select a list of options of only one option?
-**Selection Type** - Determines which items get returned if a parent and all of its children are selected
+**Reference type** - Should the user be able to select a list of options of only one option?  
+**Selection Type** - Determines which items get returned if a parent and all of its children are selected (Only for reference sets)  
 <table>
  <tr>
   <td>All</td>
